@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>The J Anon-Board 0.3</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+            padding: 10px;
+        }
+
+        h2 {
+            text-align: center;
+            padding: 10px;
+            margin: 0; /* Remove the default margin */
+            color: gray;
+        }
+
+        form {
+            text-align: center;
+            padding: 10px;
+        }
+        input[type="text"] {
+            padding: 10px;
+            width: 80%;
+            max-width: 300px;
+            border: none;
+            border-radius: 5px;
+            margin: 10px 0;
+            color: black;
+            background-color: white;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        li {
+            margin: 5px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Faint line */
+            padding-bottom: 5px; /* Add some space between items */
+        }
+
+        .alert {
+            color: red;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>The J Anon-Board 0.3</h1>
+    <h2>Add something for everyone to see secretly</h2>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">{{ message }}</div>
+        {% endfor %}
+    {% endwith %}
+    <form method="POST">
+        <input type="text" name="text" placeholder="Confess or something" autofocus> <!-- ok so autofocus thing just helped make it comfortable -->
+        <button type="submit">Add</button>
+    </form>
+    <ul>
+        {% for item in inputs %}
+            <li>{{ item }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
