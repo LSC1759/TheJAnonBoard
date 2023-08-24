@@ -1,4 +1,4 @@
-help
+# help
 
 
 to run just download entire thing as zip and do python app.py 
