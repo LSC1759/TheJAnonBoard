@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>The J Anon-Board 0.3</title>
+    <title>The J Anon-Board 0.4</title>
     <style>
         body {
             background-color: black;
@@ -19,7 +19,7 @@
         h2 {
             text-align: center;
             padding: 10px;
-            margin: 0; /* Remove the default margin */
+            margin: 0;
             color: gray;
         }
 
@@ -50,36 +50,54 @@
             padding: 0;
             text-align: center;
             margin: 0;
-            padding: 0;
         }
         li {
             margin: 5px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Faint line */
-            padding-bottom: 5px; /* Add some space between items */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding-bottom: 5px;
         }
 
         .alert {
             color: red;
             text-align: center;
         }
+
+        .timestamp {
+            font-size: 0.8em;
+            color: gray;
+        }
     </style>
 </head>
 <body>
-    <h1>The J Anon-Board 0.3</h1>
-    <h2>Add something for everyone to see secretly</h2>
+    <h1>The J Anon-Board 0.4</h1>
+    <h2>Anonymous text board.</h2>
+    <h2>The texts here may be included in Rewind.</h2>
+
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% for category, message in messages %}
             <div class="alert alert-{{ category }}">{{ message }}</div>
         {% endfor %}
     {% endwith %}
     <form method="POST">
-        <input type="text" name="text" placeholder="Confess or something" autofocus> <!-- ok so autofocus thing just helped make it comfortable -->
+        <label>
+            <input type="text" name="text" placeholder="Confess or something" autofocus>
+        </label>
         <button type="submit">Add</button>
     </form>
     <ul>
-        {% for item in inputs %}
-            <li>{{ item }}</li>
+        {% for item in inputs|reverse %}
+            <li>
+                {{ item[0] }} <span class="timestamp" data-timestamp="{{ item[1] }}"></span>
+            </li>
         {% endfor %}
     </ul>
+
+    <script>
+        document.querySelectorAll('.timestamp').forEach(function(element) {
+            var timestamp = parseInt(element.getAttribute('data-timestamp')) * 1000;
+            var localTime = new Date(timestamp).toLocaleString();
+            element.innerText = `(${localTime})`;
+        });
+    </script>
 </body>
 </html>
