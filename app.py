@@ -7,7 +7,7 @@ import time
 app = Flask(__name__)
 app.secret_key = binascii.hexlify(os.urandom(32)).decode('utf-8')
 
-DATABASE = 'user_inputs.db'
+DATABASE = '/var/lib/thejanonboard/user_inputs.db'
 
 def get_db():
     db = getattr(g, '_database', None)
